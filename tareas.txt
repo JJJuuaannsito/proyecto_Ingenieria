@@ -1,0 +1,1 @@
+Vincular pagina HTML normal con la pagina realizada en php, En el header del HTML "Hacer pedido", href="login.php". Por ahí ya quedaría pronto todo.
