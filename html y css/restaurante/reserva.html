@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reservar - El Sabor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Reserva tu mesa</h1>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="menu.html">Menú</a>
+      <a href="reserva.html">Reservas</a>
+    </nav>
+  </header>
+
+  <section>
+    <form action="reserva.php" method="POST">
+      <label for="nombre">Nombre:</label>
+      <input type="text" name="nombre" required>
+
+      <label for="email">Email:</label>
+      <input type="email" name="email" required>
+
+      <label for="fecha">Fecha:</label>
+      <input type="date" name="fecha" required>
+
+      <label for="hora">Hora:</label>
+      <input type="time" name="hora" required>
+
+      <label for="personas">Número de personas:</label>
+      <input type="number" name="personas" min="1" required>
+
+      <button type="submit">Reservar</button>
+    </form>
+  </section>
+</body>
+</html>
