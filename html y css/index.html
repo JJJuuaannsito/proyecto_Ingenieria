@@ -2,22 +2,100 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Restaurante El Sabor</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Restaurante Rosita</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: #f2f2f2;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      background: white;
+      max-width: 800px;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    header h1 {
+      font-size: 32px;
+      color: #444;
+    }
+
+    nav {
+      margin-top: 15px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #007BFF;
+      margin: 0 10px;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    h2 {
+      font-size: 26px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #555;
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Restaurante Rosita</h1>
-    <nav>
-      <a href="index.html">Inicio</a>
-      <a href="menu.html">Menú</a>
-      <a href="../index.php">Hace un pedido</a>
-    </nav>
-  </header>
 
-  <section>
-    <h2>Bienvenidos</h2>
-    <p>Disfruta de una experiencia culinaria única.</p>
-  </section>
+  <div class="container">
+    <header>
+      <h1>Restaurante Rosita</h1>
+      <nav>
+        <a href="index.html">Inicio</a>
+        <a href="menu.html">Menú</a>
+        <a href="../index.php">Hace un pedido</a>
+      </nav>
+    </header>
+
+    <section>
+      <h2>Bienvenidos al Carrito de Rosita</h2>
+      <p>
+        Desde hace años, nuestro carrito ha sido un punto de encuentro para quienes buscan una comida rica y sin complicaciones.
+        Ubicados cerca del Montevideo Shopping, hemos visto pasar generaciones de clientes, desde oficinistas apurados hasta jóvenes
+        que salen de una jornada de estudios. Lo que nos distingue no es solo la calidad de nuestros chivitos y hamburguesas, sino 
+        el trato cálido que damos a cada persona que se acerca. Nos encanta que muchos vuelvan después de años, recordando aquel 
+        primer chivito que probaron acá y la charla amistosa que tuvieron mientras esperaban.
+      </p>
+      <p>
+        Las historias de nuestros clientes son parte de nuestra esencia. Hay quienes vienen todas las semanas y ya tienen su pedido 
+        favorito, otros llegan recomendados por amigos y se sorprenden con el sabor de nuestra comida. Nos han contado que, en más de 
+        una ocasión, un chivito de Rosita fue el cierre perfecto para una noche de salidas o la recompensa después de un día agitado. 
+        Para nosotros, cada plato que servimos no es solo comida, es una oportunidad de compartir momentos con la gente y ser parte de 
+        sus recuerdos.
+      </p>
+    </section>
+  </div>
+
 </body>
 </html>
