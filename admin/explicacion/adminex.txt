@@ -1,0 +1,116 @@
+<?php
+// Incluye el archivo de conexión a la base de datos, donde se define la variable $conexion
+include '../conexion.php';
+
+// Verifica si la sesión no está iniciada o si el usuario no es administrador
+if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'admin') {
+    // Si no hay sesión o el rol no es 'admin', redirige al login
+    header("Location: login.php");
+    // Finaliza la ejecución del script para evitar que se cargue contenido restringido
+    exit;
+}
+
+// Ejecuta una consulta SQL para obtener todas las órdenes registradas
+// Se une la tabla 'ordenes' con 'usuarios' para obtener también el nombre de usuario
+// Las órdenes se ordenan de más reciente a más antigua por la fecha
+$resultado = $conexion->query("SELECT o.id, o.pedido, o.fecha, u.username 
+    FROM ordenes o JOIN usuarios u ON o.usuario_id = u.id ORDER BY o.fecha DESC");
+?>
+
+<!-- Título de la sección de órdenes -->
+<h1>Órdenes Recibidas</h1>
+
+<?php while ($fila = $resultado->fetch_assoc()): ?>
+    <!-- Contenedor de cada orden individual -->
+    <div class="ticket">
+        <!-- Muestra el nombre de usuario de forma segura -->
+        <strong>Usuario:</strong> <?= htmlspecialchars($fila['username']) ?><br>
+
+        <!-- Muestra el contenido del pedido, respetando saltos de línea -->
+        <strong>Pedido:</strong> <?= nl2br(htmlspecialchars($fila['pedido'])) ?><br>
+
+        <!-- Muestra la fecha del pedido -->
+        <strong>Fecha:</strong> <?= $fila['fecha'] ?><br>
+
+        <!-- Botón que ejecuta la función 'finalizar' pasando el ID del pedido -->
+        <button class="boton" onclick="finalizar(<?= $fila['id'] ?>)">Finalizado</button>
+    </div>
+<?php endwhile; ?>
+
+<!-- Título de la sección de usuarios -->
+<h2>Usuarios Registrados</h2>
+
+<!-- Tabla con los datos de los usuarios -->
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Usuario</th>
+        <th>Rol</th>
+        <th>Acción</th>
+        <th>Acción extra</th>
+    </tr>
+    <?php
+    // Ejecuta una consulta SQL para obtener todos los usuarios
+    $usuarios = $conexion->query("SELECT id, username, rol FROM usuarios");
+
+    // Recorre cada usuario obtenido de la base de datos
+    while ($user = $usuarios->fetch_assoc()):
+    ?>
+    <tr>
+        <!-- Muestra el ID del usuario -->
+        <td><?= $user['id'] ?></td>
+
+        <!-- Muestra el nombre de usuario de forma segura -->
+        <td><?= htmlspecialchars($user['username']) ?></td>
+
+        <!-- Muestra el rol actual del usuario -->
+        <td><?= $user['rol'] ?></td>
+
+        <!-- Columna con acción para convertir a admin si aún no lo es -->
+        <td>
+            <?php if ($user['rol'] !== 'admin'): ?>
+                <!-- Enlace para hacer admin al usuario -->
+                <a class="admin-link" href="hacer_admin.php?id=<?= $user['id'] ?>">Hacer admin</a>
+            <?php else: ?>
+                <!-- Mensaje si ya es admin -->
+                <span class="self-note">Ya es admin</span>
+            <?php endif; ?>
+        </td>
+
+        <!-- Columna con acción extra: revocar admin o volver a hacer admin -->
+        <td>
+            <?php if ($user['id'] !== $_SESSION['usuario']['id']): ?>
+                <?php if ($user['rol'] === 'admin'): ?>
+                    <!-- Enlace para revocar privilegios de admin -->
+                    <a class="revoke-link" href="revocar_admin.php?id=<?= $user['id'] ?>">Revocar admin</a>
+                <?php else: ?>
+                    <!-- Enlace redundante para hacer admin -->
+                    <a class="admin-link" href="hacer_admin.php?id=<?= $user['id'] ?>">Hacer admin</a>
+                <?php endif; ?>
+            <?php else: ?>
+                <!-- Mensaje si el usuario es el mismo que el logueado -->
+                <span class="self-note">Sos vos</span>
+            <?php endif; ?>
+        </td>
+    </tr>
+    <?php endwhile; ?>
+</table>
+
+<!-- Sección para cerrar sesión -->
+<div class="acciones">
+    <a href="../logout.php">Cerrar sesión</a>
+</div>
+
+<!-- Script en JavaScript para confirmar y finalizar pedido -->
+<script>
+function finalizar(id) {
+    // Pregunta al usuario si está seguro de que desea marcar el pedido como realizado
+    if (confirm("¿Estás seguro de que este pedido fue realizado?")) {
+        // Si acepta, redirige a la página que se encarga de eliminar el pedido
+        window.location.href = "eliminar_pedido.php?id=" + id;
+    }
+}
+</script>
+
+</body>
+</html>

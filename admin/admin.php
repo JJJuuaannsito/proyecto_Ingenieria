@@ -1,10 +1,17 @@
 <?php
 include '../conexion.php';
+// Verifica si no hay una sesión iniciada o si el usuario no es un administrador
 
 if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'admin') {
+        // Si la verificación falla, redirige al usuario a la página de login
+
     header("Location: login.php");
+        // Termina la ejecución del script para evitar que continúe cargando contenido restringido
+
     exit;
 }
+// Ejecuta una consulta SQL que obtiene las órdenes realizadas, junto con el nombre de usuario asociado
+
 
 $resultado = $conexion->query("SELECT o.id, o.pedido, o.fecha, u.username 
     FROM ordenes o JOIN usuarios u ON o.usuario_id = u.id ORDER BY o.fecha DESC");

@@ -1,0 +1,26 @@
+<?php
+// Incluye el archivo de conexión a la base de datos, donde se establece la conexión y la sesión
+include '../conexion.php';
+
+// Verifica si no existe una sesión activa o si el usuario no tiene el rol 'admin'
+if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'admin') {
+    // Si la sesión no está activa o el usuario no es admin, redirige a login.php
+    header("Location: login.php");
+    // Finaliza el script para evitar ejecución adicional
+    exit;
+}
+
+// Verifica si en la URL se ha recibido el parámetro 'id' mediante GET
+if (isset($_GET['id'])) {
+    // Convierte el valor recibido a entero para evitar inyecciones SQL
+    $id = intval($_GET['id']);
+
+    // Ejecuta una consulta SQL para eliminar la orden con el ID recibido
+    $conexion->query("DELETE FROM ordenes WHERE id = $id");
+
+    // Luego de eliminar la orden, redirige de nuevo al panel de administración
+    header("Location: admin.php");
+
+    // Finaliza el script para que no continúe ejecutándose
+    exit;
+}

@@ -1,0 +1,36 @@
+<?php
+// Incluye el archivo de conexión a la base de datos y asegura que la sesión esté activa
+include '../conexion.php';
+
+// Inicia la sesión (importante si no se ha iniciado en conexion.php)
+session_start();
+
+// Verifica que el usuario esté logueado y que tenga el rol de 'admin'
+if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'admin') {
+    // Si no está autorizado, redirige al login
+    header("Location: ../login.php");
+    // Finaliza la ejecución del script
+    exit;
+}
+
+// Obtiene el ID del usuario al que se le quiere revocar el rol, pasado por GET
+$id = intval($_GET['id']); // Convierte a entero para mayor seguridad
+
+// Obtiene el ID del administrador que está realizando la acción (el logueado)
+$miId = $_SESSION['usuario']['id'];
+
+// Verifica si el admin está intentando revocarse a sí mismo
+if ($id === $miId) {
+    // Si es así, lo redirige de nuevo al panel con un mensaje de error
+    header("Location: admin.php?error=noAutoRevocar");
+    // Finaliza el script para evitar la ejecución del cambio
+    exit;
+}
+
+// Ejecuta una consulta SQL para cambiar el rol del usuario a 'user'
+$conexion->query("UPDATE usuarios SET rol = 'user' WHERE id = $id");
+
+// Redirige nuevamente al panel de administración después de hacer el cambio
+header("Location: admin.php");
+// Finaliza el script
+exit;

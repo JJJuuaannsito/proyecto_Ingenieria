@@ -1,0 +1,34 @@
+<?php
+// Incluye el archivo de conexión a la base de datos e inicia la sesión si no está iniciada
+include '../conexion.php';
+
+// Verifica si el usuario no está logueado o si su rol no es 'user' (es decir, un cliente normal)
+if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'user') {
+    // Si no cumple las condiciones, redirige al login para evitar acceso indebido
+    header("Location: login.php");
+    // Finaliza el script inmediatamente
+    exit;
+}
+
+// Recupera el contenido del pedido enviado desde un formulario mediante método POST
+$pedido = $_POST['pedido'];
+
+// Obtiene el ID del usuario que hizo el pedido, desde la sesión
+$usuario_id = $_SESSION['usuario']['id'];
+
+// Prepara una consulta SQL segura para insertar un nuevo registro en la tabla 'ordenes'
+// Se usa un statement preparado para evitar inyecciones SQL
+$query = $conexion->prepare("INSERT INTO ordenes (usuario_id, pedido) VALUES (?, ?)");
+
+// Enlaza los parámetros con los valores correspondientes
+// "i" indica entero (usuario_id), "s" indica string (pedido)
+$query->bind_param("is", $usuario_id, $pedido);
+
+// Ejecuta la consulta preparada para guardar el pedido en la base de datos
+$query->execute();
+
+// Muestra un mensaje de confirmación al usuario
+echo "¡Orden enviada!";
+
+// Muestra un enlace para volver al inicio (por ejemplo, a la carta o menú)
+echo '<br><a href="../index.php">Volver</a>';

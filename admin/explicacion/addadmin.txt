@@ -1,0 +1,25 @@
+<?php
+// Incluye el archivo de conexión a la base de datos y posiblemente inicia la sesión
+include '../conexion.php';
+
+// Verifica si el usuario no está logueado o si no tiene permisos de administrador
+if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'admin') {
+    // Si no está autorizado, lo redirige a la página de login
+    header("Location: login.php");
+    // Finaliza la ejecución del script para prevenir acceso no autorizado
+    exit;
+}
+
+// Verifica si se recibió un parámetro 'id' por la URL (GET)
+if (isset($_GET['id'])) {
+    // Convierte el valor recibido a número entero para evitar inyección SQL
+    $id = intval($_GET['id']);
+
+    // Ejecuta una consulta para actualizar el rol del usuario con ese ID a 'admin'
+    $conexion->query("UPDATE usuarios SET rol = 'admin' WHERE id = $id");
+}
+
+// Redirige nuevamente al panel de administración después de realizar el cambio
+header("Location: admin.php");
+// Finaliza el script para evitar que se ejecute código adicional
+exit;
