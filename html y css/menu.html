@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Menú - El Sabor</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: #f2f2f2;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      background: white;
+      max-width: 900px;
+      width: 100%;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    header h1 {
+      font-size: 32px;
+      color: #444;
+    }
+
+    nav {
+      margin-top: 15px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #007BFF;
+      margin: 0 10px;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .item {
+      background-color: #fafafa;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .item:hover {
+      transform: scale(1.03);
+    }
+
+    .item strong {
+      display: block;
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .price {
+      color: #28a745;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Menú</h1>
+      <nav>
+        <a href="index.html">Inicio</a>
+        <a href="menu.html">Menú</a>
+        <a href="../index.php">Hace un pedido</a>
+      </nav>
+    </header>
+
+    <section class="menu-grid">
+      <div class="item"><strong>Hamburguesa Completa</strong><span class="price">$198</span></div>
+      <div class="item"><strong>Hamburguesa Queso</strong><span class="price">$170</span></div>
+      <div class="item"><strong>Chorizo Completo</strong><span class="price">$250</span></div>
+      <div class="item"><strong>Chorizo Común</strong><span class="price">$225</span></div>
+      <div class="item"><strong>Pancho Común Largo</strong><span class="price">$98</span></div>
+      <div class="item"><strong>Pancho c/muzzarella Largo</strong><span class="price">$125</span></div>
+      <div class="item"><strong>Hamburguesa Doble c/Doble Cheddar</strong><span class="price">$230</span></div>
+      <div class="item"><strong>Hamburguesa Doble c/Doble Cheddar y Lomito</strong><span class="price">$250</span></div>
+      <div class="item"><strong>Coca Cola</strong><span class="price">$95</span></div>
+      <div class="item"><strong>Pepsi</strong><span class="price">$85</span></div>
+      <div class="item"><strong>Nix</strong><span class="price">$75</span></div>
+      <div class="item"><strong>Agua</strong><span class="price">$73</span></div>
+      <div class="item"><strong>Jugo</strong><span class="price">$80</span></div>
+      <div class="item"><strong>Malta</strong><span class="price">$110</span></div>
+      <div class="item"><strong>Monster</strong><span class="price">$135</span></div>
+      <div class="item"><strong>Coca lata</strong><span class="price">$78</span></div>
+      <div class="item"><strong>Coca mini</strong><span class="price">$45</span></div>
+    </section>
+  </div>
+</body>
+</html>
+e
